@@ -131,7 +131,7 @@ def convertWhereListToWhere(fieldList, tableName, whereList):
 	if type(value) is int:
 		output3 = output3 + str(whereList[field])
 	else:
-		output3 + '%27' + whereList[field] + '%27'
+		output3 = output3 + '%27' + whereList[field] + '%27'
 	output3 = output3.replace(',+,+','+,+')
 	return output3
 
@@ -159,7 +159,7 @@ def convertSelectWhereListToSelectWhere(fieldList, tableName, selectList, whereL
 	if type(value) is int:
 		output3 = output3 + str(whereList[field])
 	else:
-		output3 + '%27' + whereList[field] + '%27'
+		output3 = output3 + '%27' + whereList[field] + '%27'
 	output3 = output3.replace(',+FROM','FROM')
 	output3 = output3.replace(',+,+','+,+')
 

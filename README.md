@@ -1,11 +1,12 @@
 SolarWindsOrionREST
 ===================
 
-SolarWinds Orion REST python library
+# OVERVIEW
 
-This python library provides access to SolarWinds Orion database through a series of python modules
-Just download the library, run your favourite python 2.7.x interpreter, import the library, and starting pulling down your Orion data
+SolarWinds Orion REST is a python library that provides easy access to the SolarWinds Orion database, through a series of python modules. The library simplifies things by hiding both the REST syntax and SQL query language.
 
-This version of the library, provides access primarily to about 50% of the NPM database tables. If you need others let us know 
+Just download the library, run your favourite python 2.7.x interpreter, import the library, and starting pulling down your Orion data.
 
-Check the wiki for detailed instructions
+This version of the library, provides access to about 50% of the NPM database tables. If you need others let us know as its easy to add more through an automated helper module that automatically generates the library. 
+
+Check the GitHub wiki for detailed instructions.
