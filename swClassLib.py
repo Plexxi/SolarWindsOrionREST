@@ -21,12 +21,14 @@ import httplib
 import json
 import inspect
 
-from time import *
-from swCommonLib import *
-
-# Set DEBUG either 1 or 2 for extensive logging info
-global DEBUG
-DEBUG = 0
+from swCommonLib import (
+    argChecker,
+    debugPrint,
+    convertFieldListToSelect,
+    convertSelectListToSelect,
+    convertWhereListToWhere,
+    convertSelectWhereListToSelectWhere,
+)
 
 #
 # Main SolarWinds class.
@@ -65,8 +67,7 @@ class SolarWinds():
         return self.https()
 
     def https(self):
-        if DEBUG:
-            httplib.HTTPSConnection.debuglevel = 1
+        httplib.HTTPSConnection.debuglevel = 1
         return httplib.HTTPSConnection(self.ip, self.port)
 
     def createHeader(self):
@@ -81,8 +82,6 @@ class SolarWinds():
                 (self.username, self.password))
         # Create the final header
         header['authorization'] = 'Basic %s' % self.auth_key
-        if DEBUG:
-            print header
         return header
 
     def sendRequest(self, **kwargs):
@@ -103,7 +102,6 @@ class SolarWinds():
             payload = json.dumps(payload, ensure_ascii=False)
             payload.encode('utf-8')
 
-            debugPrint("")
         # Attempt to connect using the given details.
         # If the connection fails, return False and dump the calling function
 
@@ -117,17 +115,12 @@ class SolarWinds():
         except:
             print "Could not connect in call from %s. Unable to continue" % (caller)
             return None
-        # If we are here, the connection was successful, now we need to ensure that we got a
-        # response that we were expecting.
+        # If we are here, the connection was successful, now we need to ensure
+        # that we got a response that we were expecting.
         response = conn.getresponse()
-        if DEBUG:
-            debugPrint(
-                "#################\nResponse header = %s\n#################" %
-                (response.getheaders()))
-            if status == 0:
-                print "Expected Status is 0 - ignoring. Actual = %s" % (response.status)
-            else:
-                print "Response Status from %s = %s. Expecting %s" % (caller, response.status, status)
+        debugPrint(
+            "Response header = %s" %
+            (response.getheaders()))
         # status is passed into the call and is the http response status expeted from the call.
         # If the passed in status is 0, ifgnore this check
         if status:
