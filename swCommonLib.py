@@ -49,15 +49,12 @@ def optionaAttribute(attr, lst):
 def requiredAttribute(attr, lst):
     for Attr in attr:
         if Attr not in lst:
-            print "%s is a required attribute" % (Attr)
-            print "Called from %s()" % (inspect.stack()[2][3])
             return False
     return True
 
 
 def debugPrint(msg):
     logger.info(msg)
-    logger.debug(traceback.print_stack(file=sys.stdout))
 
 
 def convertSQLtoREST(data):
@@ -97,7 +94,6 @@ def convertFieldListToSelect(fieldList, tableName):
 def convertSelectListToSelect(fieldList, tableName, selectList):
 
     if any((False for x in selectList if x in fieldList)):
-        print 'error', selectList, fieldList
         return 0
 
     output2 = 'SELECT+'
@@ -112,7 +108,6 @@ def convertSelectListToSelect(fieldList, tableName, selectList):
 
 def convertWhereListToWhere(fieldList, tableName, whereList):
     if any((False for x in whereList if x in fieldList)):
-        print 'FieldList error', whereList
         return 0
     output3 = 'SELECT+'
     for field in fieldList:
@@ -144,10 +139,8 @@ def convertSelectWhereListToSelectWhere(
         whereList):
 
     if any((False for x in selectList if x in fieldList)):
-        print 'FieldList error', selectList, whereList
         return 0
     if any((False for x in whereList if x in fieldList)):
-        print 'FieldList error', selectList, whereList
         return 0
     output3 = 'SELECT+'
     for field in selectList:
@@ -198,7 +191,6 @@ def getFunctionName(data):
 
 
 def helperPrint(data, fileHandle=None):
-    print data
     fileHandle.append(data)
 
 
